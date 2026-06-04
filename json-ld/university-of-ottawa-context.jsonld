@@ -1,0 +1,110 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "uottawa": "https://www.uottawa.ca/#vocab/",
+    "schema": "https://schema.org/",
+    "dspace": "https://ruor.uottawa.ca/server/api/#vocab/",
+    "oai": "http://www.openarchives.org/OAI/2.0/",
+
+    "organization": {
+      "@id": "schema:CollegeOrUniversity",
+      "@type": "@id"
+    },
+    "name": "schema:name",
+    "alternateName": "schema:alternateName",
+    "description": "schema:description",
+    "url": "schema:url",
+    "logo": "schema:logo",
+    "sameAs": {
+      "@id": "schema:sameAs",
+      "@type": "@id"
+    },
+    "address": "schema:address",
+    "foundingDate": "schema:foundingDate",
+    "department": {
+      "@id": "schema:department",
+      "@type": "@id"
+    },
+
+    "repository": {
+      "@id": "uottawa:institutionalRepository",
+      "@type": "@id"
+    },
+    "api": {
+      "@id": "uottawa:api",
+      "@type": "@id"
+    },
+    "baseURL": {
+      "@id": "uottawa:baseURL",
+      "@type": "@id"
+    },
+    "humanURL": {
+      "@id": "uottawa:humanURL",
+      "@type": "@id"
+    },
+
+    "community": {
+      "@id": "dspace:Community",
+      "@type": "@id"
+    },
+    "collection": {
+      "@id": "dspace:Collection",
+      "@type": "@id"
+    },
+    "item": {
+      "@id": "schema:CreativeWork"
+    },
+    "bitstream": {
+      "@id": "schema:MediaObject"
+    },
+    "handle": "dspace:handle",
+    "dspaceVersion": "dspace:dspaceVersion",
+
+    "metadataFormat": "oai:metadataFormat",
+    "set": "oai:set",
+    "record": "oai:record",
+
+    "title": "schema:name",
+    "creator": "schema:creator",
+    "subject": "schema:about",
+    "datePublished": {
+      "@id": "schema:datePublished",
+      "@type": "schema:Date"
+    },
+    "publisher": {
+      "@id": "schema:publisher",
+      "@type": "@id"
+    },
+    "identifier": "schema:identifier",
+    "language": "schema:inLanguage",
+    "license": {
+      "@id": "schema:license",
+      "@type": "@id"
+    }
+  },
+  "@type": "CollegeOrUniversity",
+  "name": "University of Ottawa",
+  "alternateName": "uOttawa",
+  "url": "https://www.uottawa.ca/",
+  "description": "Public bilingual research university in Ottawa, Ontario, Canada, and the largest English-French bilingual university in the world.",
+  "sameAs": [
+    "https://github.com/uottawa-wcms",
+    "https://ca.linkedin.com/school/uottawa/"
+  ],
+  "repository": "https://ruor.uottawa.ca/",
+  "api": [
+    {
+      "@type": "WebAPI",
+      "name": "uO Research DSpace REST API",
+      "humanURL": "https://ruor.uottawa.ca/",
+      "baseURL": "https://ruor.uottawa.ca/server/api",
+      "dspaceVersion": "DSpace 7.6.5"
+    },
+    {
+      "@type": "WebAPI",
+      "name": "uO Research OAI-PMH",
+      "humanURL": "https://ruor.uottawa.ca/",
+      "baseURL": "https://ruor.uottawa.ca/server/oai/request"
+    }
+  ]
+}
