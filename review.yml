@@ -1,0 +1,38 @@
+---
+name: University of Ottawa
+description: University of Ottawa public developer/API footprint review for APIs.json cataloging.
+url: https://raw.githubusercontent.com/api-evangelist/university-of-ottawa/refs/heads/main/review.yml
+created: '2026-06-03'
+modified: '2026-06-03'
+reviews:
+  - date: '2026-06-03'
+    rating: 2
+    summary: >-
+      Verified live: the uO Research institutional repository (Recherche uO
+      Research) runs DSpace 7.6.5 and exposes a public DSpace REST/HATEOAS API
+      and an OAI-PMH 2.0 endpoint, both returning HTTP 200 and self-describing
+      metadata. The official uottawa-wcms GitHub organization (Drupal/WCMS
+      modules, ~34 repos) and the official LinkedIn school page and website were
+      confirmed. No unified public developer portal, no documented open-data
+      API, and no public course/catalog/SIS or mobile-backend API were found;
+      enterprise and student systems appear gated behind institutional SSO. No
+      endpoints were fabricated.
+    endpoints:
+      - url: https://ruor.uottawa.ca/
+        status: 200
+        note: uO Research institutional repository home (DSpace 7.6.5).
+      - url: https://ruor.uottawa.ca/server/api
+        status: 200
+        note: DSpace REST API root; reports dspaceVersion DSpace 7.6.5 with HAL _links.
+      - url: https://ruor.uottawa.ca/server/oai/request?verb=Identify
+        status: 200
+        note: OAI-PMH 2.0 Identify; repository name "Recherche uO Research".
+      - url: https://www.uottawa.ca/
+        status: 200
+        note: Official institutional website.
+      - url: https://github.com/uottawa-wcms
+        status: 200
+        note: Official uOttawa web content management GitHub org (~34 repos).
+      - url: https://ca.linkedin.com/school/uottawa/
+        status: 999
+        note: Official LinkedIn school page; 999 is LinkedIn's standard bot block, page exists.

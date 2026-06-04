@@ -1,0 +1,79 @@
+---
+aid: university-of-ottawa
+name: University of Ottawa
+description: >-
+  The University of Ottawa (uOttawa) is a public bilingual research university
+  in Ottawa, Ontario, Canada, and the largest English-French bilingual
+  university in the world. It is ranked #189 in the QS World University Rankings
+  2025. Its public, machine-readable developer footprint is concentrated in the
+  library's institutional repository, uO Research (Recherche uO Research), which
+  runs on DSpace 7.6.5 and exposes both a public DSpace REST/HATEOAS API and an
+  OAI-PMH 2.0 metadata-harvesting endpoint. uOttawa does not operate a single
+  unified public developer portal; most enterprise and student-information
+  systems are gated behind institutional SSO.
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/university-of-ottawa/refs/heads/main/apis.yml
+tags:
+  - Education
+  - Higher Education
+  - University
+  - Canada
+  - Bilingual
+  - Library
+  - Institutional Repository
+  - DSpace
+  - OAI-PMH
+  - Open Access
+created: '2026-06-03'
+modified: '2026-06-03'
+specificationVersion: '0.19'
+apis:
+  - aid: university-of-ottawa:ruor-rest
+    name: uO Research DSpace REST API
+    description: >-
+      Public DSpace 7.6.5 REST/HATEOAS API for uO Research (Recherche uO
+      Research), the University of Ottawa's institutional repository. The API
+      root reports dspaceVersion "DSpace 7.6.5" and dspaceName "Recherche uO
+      Research", and discloses available endpoints (communities, collections,
+      items, bitstreams, discovery/search) via HAL _links.
+    humanURL: https://ruor.uottawa.ca/
+    baseURL: https://ruor.uottawa.ca/server/api
+    tags: [ Library, Institutional Repository, DSpace, Open Access, Research ]
+    properties:
+      - type: Documentation
+        url: https://ruor.uottawa.ca/server/api
+  - aid: university-of-ottawa:ruor-oai
+    name: uO Research OAI-PMH
+    description: >-
+      OAI-PMH 2.0 metadata-harvesting endpoint for uO Research. An Identify
+      request confirms protocol version 2.0 and repository name "Recherche uO
+      Research", supporting standard verbs (Identify, ListRecords,
+      ListMetadataFormats, ListSets, GetRecord) for harvesting open-access
+      scholarly metadata.
+    humanURL: https://ruor.uottawa.ca/
+    baseURL: https://ruor.uottawa.ca/server/oai/request
+    tags: [ Library, OAI-PMH, Metadata, Harvesting, Open Access ]
+    properties:
+      - type: Documentation
+        url: https://ruor.uottawa.ca/server/oai/request?verb=Identify
+common:
+  - type: Website
+    url: https://www.uottawa.ca/
+  - type: GitHub
+    url: https://github.com/uottawa-wcms
+  - type: LinkedIn
+    url: https://ca.linkedin.com/school/uottawa/
+  - type: Plans
+    url: plans/university-of-ottawa-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/university-of-ottawa-rate-limits.yml
+  - type: FinOps
+    url: finops/university-of-ottawa-finops.yml
+  - type: Review
+    url: review.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
