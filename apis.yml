@@ -60,6 +60,8 @@ apis:
       - type: Documentation
         url: https://ruor.uottawa.ca/server/oai/request?verb=Identify
 common:
+  - type: DomainSecurity
+    url: security/university-of-ottawa-domain-security.yml
   - type: Website
     url: https://www.uottawa.ca/
   - type: GitHub
