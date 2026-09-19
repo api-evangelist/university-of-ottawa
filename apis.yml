@@ -138,6 +138,11 @@ apis:
   - Course Catalog
   - Curriculum
   - CourseLeaf
+  - Tenants
+  tags_raw:
+  - Course Catalog
+  - Curriculum
+  - CourseLeaf
   - Tenant
   properties:
   - type: Examples
@@ -160,6 +165,12 @@ apis:
   - Dataverse
   - Borealis
   - Repository
+  - Tenants
+  tags_raw:
+  - Research Data
+  - Dataverse
+  - Borealis
+  - Repository
   - Tenant
   properties:
   - type: Website
@@ -175,6 +186,13 @@ apis:
   humanURL: https://ocul-uo.primo.exlibrisgroup.com/discovery/search?vid=01OCUL_UO:UO_DEFAULT
   baseURL: https://ocul-uo.primo.exlibrisgroup.com/discovery
   tags:
+  - Library
+  - Discovery
+  - Primo
+  - Ex Libris
+  - OCUL
+  - Tenants
+  tags_raw:
   - Library
   - Discovery
   - Primo
@@ -451,7 +469,8 @@ apis:
     1 operation(s) for uo research (recherche uo research) dspace rest api.
   humanURL: https://ruor.uottawa.ca/
   baseURL: https://ruor.uottawa.ca/server/api
-  tags:
+  tags: []
+  tags_raw:
   - UO Research (Recherche UO Research) DSpace REST API
   properties:
   - type: OpenAPI
