@@ -1,0 +1,82 @@
+generated: '2026-09-01'
+method: probed
+source: https://ruor.uottawa.ca/server/api/core/metadataschemas
+x-operator: institution
+note: >-
+  The vocabularies the University of Ottawa's own surfaces actually use, read from live
+  registry endpoints on 2026-09-01 rather than asserted. The uO Research metadata registry is
+  the institution's richest declared vocabulary: 21 registered schemas, one of which
+  (prefix `uottawa`) is uOttawa's own local extension.
+vocabularies:
+  - id: ruor-metadata-registry
+    surface: uO Research DSpace REST API
+    evidence_url: https://ruor.uottawa.ca/server/api/core/metadataschemas?size=30
+    total_schemas: 21
+    schemas:
+      - { prefix: dc, namespace: 'http://dublincore.org/documents/dcmi-terms/' }
+      - { prefix: dcterms, namespace: 'http://purl.org/dc/terms/' }
+      - { prefix: uottawa, namespace: 'uottawa', note: 'Institution-local schema defined by uOttawa' }
+      - { prefix: thesis, namespace: 'http://www.ndltd.org/standards/metadata/etdms/1.1/' }
+      - { prefix: datacite, namespace: 'http://datacite.org/schema/kernel-4' }
+      - { prefix: oaire, namespace: 'http://namespace.openaire.eu/schema/oaire/' }
+      - { prefix: coar, namespace: 'http://dspace.org/coar' }
+      - { prefix: iiif, namespace: 'http://dspace.org/iiif' }
+      - { prefix: person, namespace: 'https://schema.org/Person' }
+      - { prefix: project, namespace: 'https://schema.org/Project' }
+      - { prefix: organization, namespace: 'https://schema.org/Organization' }
+      - { prefix: periodical, namespace: 'https://schema.org/Periodical' }
+      - { prefix: creativework, namespace: 'https://schema.org/CreativeWork' }
+      - { prefix: creativeworkseries, namespace: 'https://schema.org/CreativeWorkSeries' }
+      - { prefix: publicationissue, namespace: 'https://schema.org/PublicationIssue' }
+      - { prefix: publicationvolume, namespace: 'https://schema.org/PublicationVolume' }
+      - { prefix: relation, namespace: 'http://dspace.org/relation' }
+      - { prefix: dspace, namespace: 'http://dspace.org/dspace' }
+      - { prefix: local, namespace: 'http://dspace.org/namespace/local/' }
+      - { prefix: eperson, namespace: 'http://dspace.org/eperson' }
+      - { prefix: workflow, namespace: 'http://www.dspace.org/workflow' }
+    notable_fields:
+      - field: person.identifier.orcid
+        note: ORCID iD on person entities; see conformance/university-of-ottawa-conformance.yml
+      - field: 'orcid.sync-publications, orcid.sync-fundings, orcid.sync-profile, orcid.sync-mode, orcid.authenticated, orcid.scope'
+        note: DSpace ORCID synchronisation configuration fields present in the registry
+  - id: ruor-oai-metadata-formats
+    surface: uO Research OAI-PMH
+    evidence_url: https://ruor.uottawa.ca/server/oai/request?verb=ListMetadataFormats
+    formats: [oai_dc, qdc, mods, mets, didl, ore, rdf, marc, xoai, dim, etdms, oai_etdms, rioxx, uketd_dc]
+    sets: >-
+      ListSets returns community- and collection-scoped sets keyed on Handle prefix 10393
+      (for example com_10393_51008), so harvesters can subset by uOttawa community.
+  - id: www-jsonapi-content-model
+    surface: uottawa.ca Content JSON:API
+    evidence_url: https://www.uottawa.ca/jsonapi
+    note: >-
+      The JSON:API index advertises 287 resource-type link relations naming uOttawa's own
+      Drupal content model. A representative subset, confirmed present in the index on
+      2026-09-01.
+    resource_types:
+      - node--article
+      - node--alert
+      - node--academic_experience
+      - node--campus_life
+      - node--community_and_culture
+      - node--content_hub
+      - node--event_flex_page
+      - node--events_hub
+      - node--faculty
+      - node--business_card
+      - media--image
+      - media--video
+      - media--document
+      - media--audio
+      - media--svg_image
+      - taxonomy_term--tags
+  - id: identifier-namespaces
+    note: Persistent-identifier namespaces the institution actually mints in.
+    namespaces:
+      - { scheme: Handle, prefix: '10393', surface: uO Research }
+      - { scheme: DOI, prefix: '10.20381', registry: DataCite, registrant: 'uott.library' }
+      - { scheme: DOI, prefix: '10.18192', registry: Crossref, registrant: 'University of Ottawa Library (member 7569)' }
+      - { scheme: DOI, prefix: '10.51224', registry: Crossref, registrant: 'University of Ottawa Library (member 7569)' }
+      - { scheme: DOI, prefix: '10.31188', registry: Crossref, registrant: 'University of Ottawa Press (member 16151)' }
+      - { scheme: ROR, id: 'https://ror.org/03c4mmv16' }
+      - { scheme: 'SAML entityID', id: 'https://fca-caf.uottawa.ca/idp', scope: uottawa.ca }

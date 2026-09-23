@@ -1,0 +1,101 @@
+{
+  "jsonapi": {
+    "version": "1.0",
+    "meta": {
+      "links": {
+        "self": {
+          "href": "http://jsonapi.org/format/1.0/"
+        }
+      }
+    }
+  },
+  "data": [
+    {
+      "type": "node--article",
+      "id": "234735fc-de95-4800-9d51-0129fe794cee",
+      "links": {
+        "self": {
+          "href": "https://www.uottawa.ca/en/jsonapi/node/article/234735fc-de95-4800-9d51-0129fe794cee?resourceVersion=id%3A31166"
+        },
+        "working-copy": {
+          "href": "https://www.uottawa.ca/en/jsonapi/node/article/234735fc-de95-4800-9d51-0129fe794cee?resourceVersion=rel%3Aworking-copy"
+        }
+      },
+      "attributes": {
+        "drupal_internal__nid": 1926,
+        "title": "Ericsson establishes Quantum Research hub at uOttawa",
+        "created": "2023-03-20T15:56:10+00:00",
+        "changed": "2023-04-18T14:27:59+00:00",
+        "path": {
+          "alias": "/news-all/ericsson-establishes-quantum-research-hub-uottawa",
+          "pid": 65516,
+          "langcode": "en"
+        },
+        "langcode": "en",
+        "status": true,
+        "moderation_state": "published"
+      },
+      "relationships": {
+        "node_type": {
+          "data": {
+            "type": "node_type--node_type",
+            "id": "aeda1b5f-fb10-4965-a138-6fee57b40226",
+            "meta": {
+              "drupal_internal__target_id": "article"
+            }
+          },
+          "links": {
+            "related": {
+              "href": "https://www.uottawa.ca/en/jsonapi/node/article/234735fc-de95-4800-9d51-0129fe794cee/node_type?resourceVersion=id%3A31166"
+            },
+            "self": {
+              "href": "https://www.uottawa.ca/en/jsonapi/node/article/234735fc-de95-4800-9d51-0129fe794cee/relationships/node_type?resourceVersion=id%3A31166"
+            }
+          }
+        },
+        "revision_uid": {
+          "data": {
+            "type": "user--user",
+            "id": "7d6ea5e1-3c18-4f67-8b35-d449be002353",
+            "meta": {
+              "drupal_internal__target_id": 4476
+            }
+          },
+          "links": {
+            "related": {
+              "href": "https://www.uottawa.ca/en/jsonapi/node/article/234735fc-de95-4800-9d51-0129fe794cee/revision_uid?resourceVersion=id%3A31166"
+            },
+            "self": {
+              "href": "https://www.uottawa.ca/en/jsonapi/node/article/234735fc-de95-4800-9d51-0129fe794cee/relationships/revision_uid?resourceVersion=id%3A31166"
+            }
+          }
+        },
+        "uid": {
+          "data": {
+            "type": "user--user",
+            "id": "0b660af3-1480-4d58-8d9f-1d37b4b59d9a",
+            "meta": {
+              "drupal_internal__target_id": 36001
+            }
+          },
+          "links": {
+            "related": {
+              "href": "https://www.uottawa.ca/en/jsonapi/node/article/234735fc-de95-4800-9d51-0129fe794cee/uid?resourceVersion=id%3A31166"
+            },
+            "self": {
+              "href": "https://www.uottawa.ca/en/jsonapi/node/article/234735fc-de95-4800-9d51-0129fe794cee/relationships/uid?resourceVersion=id%3A31166"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "links": {
+    "next": {
+      "href": "https://www.uottawa.ca/en/jsonapi/node/article?page%5Boffset%5D=2&page%5Blimit%5D=2"
+    },
+    "self": {
+      "href": "https://www.uottawa.ca/en/jsonapi/node/article?page%5Blimit%5D=2"
+    }
+  }
+}

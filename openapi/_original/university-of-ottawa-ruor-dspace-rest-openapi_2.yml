@@ -1,0 +1,254 @@
+# x-archived-from: university-of-ottawa-ruor-dspace-rest-openapi.yml
+# x-archived-on: 2026-09-16
+openapi: 3.0.3
+info:
+  title: uO Research (Recherche uO Research) DSpace REST API
+  version: '8.3'
+  description: >-
+    Read-only description of the publicly reachable subset of the DSpace REST/HATEOAS API
+    that the University of Ottawa Library operates for uO Research (Recherche uO Research),
+    the institution's own institutional repository, at https://ruor.uottawa.ca/server/api.
+
+    OPERATOR: University of Ottawa. The host ruor.uottawa.ca resolves to 137.122.5.61, inside
+    the University of Ottawa's own IP allocation, and the API root reports
+    dspaceName "Recherche uO Research" with adminEmail ruor@uottawa.ca. The SOFTWARE is
+    DSpace 8.3, an open-source repository platform stewarded by LYRASIS; uOttawa self-hosts
+    it. The endpoint design is DSpace's, the deployment, content and DOIs are uOttawa's.
+
+    PROVENANCE: The University of Ottawa publishes no OpenAPI for this API. This document was
+    written by API Evangelist from live, unauthenticated probes of the endpoints below on
+    2026-09-01, and describes only operations that were actually called and whose status code
+    was recorded. It is not a complete description of the DSpace 8.3 API - the root advertises
+    79 HAL link relations, most of which require authentication and were not probed.
+  contact:
+    name: uO Research, University of Ottawa Library
+    email: ruor@uottawa.ca
+    url: https://ruor.uottawa.ca/
+  license:
+    name: Not stated by the operator
+    url: https://ruor.uottawa.ca/
+servers:
+  - url: https://ruor.uottawa.ca/server/api
+    description: Production DSpace 8.3 REST API, University of Ottawa Library
+x-operator: institution
+x-provenance:
+  generated: '2026-09-01'
+  method: probed
+  source: https://ruor.uottawa.ca/server/api
+  author: API Evangelist
+  note: >-
+    Probed, not published by the institution and not derived from a vendor document.
+    Every path below was requested anonymously and the recorded response codes are real.
+paths:
+  /:
+    get:
+      operationId: getRoot
+      summary: API root / service document
+      description: >-
+        Returns the DSpace HAL root document. Probed 2026-09-01: HTTP 200,
+        application/hal+json, 8,619 bytes, dspaceVersion "DSpace 8.3",
+        dspaceName "Recherche uO Research", 79 HAL link relations.
+      responses:
+        '200':
+          description: HAL root document
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Root'
+  /core/communities:
+    get:
+      operationId: listCommunities
+      summary: List top-level and child communities
+      description: >-
+        Probed 2026-09-01 with ?size=1: HTTP 200, application/hal+json, first community
+        "Affaires academiques // Academic Affairs", handle 10393/51008.
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Size'
+      responses:
+        '200':
+          description: Paged HAL collection of communities
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/PagedCommunities'
+  /core/communities/{uuid}:
+    get:
+      operationId: getCommunity
+      summary: Get one community by UUID
+      description: >-
+        Probed 2026-09-01 with a non-UUID identifier: HTTP 401. This deployment answers
+        unresolvable or unauthorized DSpace object requests with 401, not 404.
+      parameters:
+        - name: uuid
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200':
+          description: A single community
+          content:
+            application/hal+json:
+              schema: { type: object }
+        '401':
+          description: Unauthenticated request for a non-resolvable or restricted object
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+  /core/collections:
+    get:
+      operationId: listCollections
+      summary: List collections
+      description: 'Probed 2026-09-01 with ?size=1: HTTP 200, application/hal+json, 5,312 bytes.'
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Size'
+      responses:
+        '200':
+          description: Paged HAL collection of collections
+          content:
+            application/hal+json:
+              schema: { type: object }
+  /core/items:
+    get:
+      operationId: listItems
+      summary: List items
+      description: >-
+        Probed 2026-09-01 with ?size=1: HTTP 401. Item enumeration is closed to
+        anonymous callers on this deployment; public discovery goes through
+        /discover/search/objects instead.
+      responses:
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+  /discover/search/objects:
+    get:
+      operationId: searchObjects
+      summary: Discovery search across the repository
+      description: >-
+        Probed 2026-09-01 with ?query=climate&size=1: HTTP 200, application/hal+json,
+        21,098 bytes, returning embedded search results with facets. This is the
+        anonymous read path for repository content.
+      parameters:
+        - name: query
+          in: query
+          schema: { type: string }
+        - name: dsoType
+          in: query
+          schema: { type: string, enum: [community, collection, item] }
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Size'
+      responses:
+        '200':
+          description: Discovery result document
+          content:
+            application/hal+json:
+              schema: { type: object }
+  /core/metadataschemas:
+    get:
+      operationId: listMetadataSchemas
+      summary: Metadata schema registry
+      description: 'Probed 2026-09-01 with ?size=30: HTTP 200, 6,106 bytes.'
+      parameters:
+        - $ref: '#/components/parameters/Size'
+      responses:
+        '200':
+          description: Registered metadata schemas
+          content:
+            application/hal+json:
+              schema: { type: object }
+  /core/metadatafields:
+    get:
+      operationId: listMetadataFields
+      summary: Metadata field registry
+      description: >-
+        Probed 2026-09-01 with ?schema=person&size=20 and ?size=500: HTTP 200. The registry
+        includes person.identifier.orcid and the DSpace ORCID synchronisation fields.
+      parameters:
+        - name: schema
+          in: query
+          schema: { type: string }
+        - $ref: '#/components/parameters/Size'
+      responses:
+        '200':
+          description: Registered metadata fields
+          content:
+            application/hal+json:
+              schema: { type: object }
+  /authn/status:
+    get:
+      operationId: getAuthenticationStatus
+      summary: Authentication status of the caller
+      description: >-
+        Probed 2026-09-01: HTTP 200, 429 bytes, {"okay": true, "authenticated": false}.
+        Confirms anonymous access is permitted and no session is required for public reads.
+      responses:
+        '200':
+          description: Authentication status document
+          content:
+            application/hal+json:
+              schema: { $ref: '#/components/schemas/AuthnStatus' }
+components:
+  parameters:
+    Page:
+      name: page
+      in: query
+      schema: { type: integer, minimum: 0, default: 0 }
+    Size:
+      name: size
+      in: query
+      schema: { type: integer, minimum: 1, maximum: 100, default: 20 }
+  schemas:
+    Root:
+      type: object
+      properties:
+        dspaceUI: { type: string, format: uri, example: 'https://ruor.uottawa.ca' }
+        dspaceName: { type: string, example: 'Recherche uO Research' }
+        dspaceServer: { type: string, format: uri, example: 'https://ruor.uottawa.ca/server' }
+        dspaceVersion: { type: string, example: 'DSpace 8.3' }
+        type: { type: string, example: root }
+        _links: { type: object }
+    PagedCommunities:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            communities:
+              type: array
+              items: { $ref: '#/components/schemas/Community' }
+        page: { $ref: '#/components/schemas/Page' }
+        _links: { type: object }
+    Community:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        uuid: { type: string, format: uuid }
+        name: { type: string, example: 'Affaires academiques // Academic Affairs' }
+        handle: { type: string, example: '10393/51008' }
+        metadata: { type: object }
+        type: { type: string, example: community }
+    Page:
+      type: object
+      properties:
+        size: { type: integer }
+        totalElements: { type: integer }
+        totalPages: { type: integer }
+        number: { type: integer }
+    AuthnStatus:
+      type: object
+      properties:
+        okay: { type: boolean }
+        authenticated: { type: boolean }
+        authenticationMethod: { type: string, nullable: true }
+        type: { type: string, example: status }
+    Error:
+      type: object
+      properties:
+        timestamp: { type: string, format: date-time }
+        status: { type: integer }
+        error: { type: string }
+        message: { type: string }
+        path: { type: string }

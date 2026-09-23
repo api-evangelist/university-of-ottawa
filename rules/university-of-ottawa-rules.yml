@@ -1,0 +1,66 @@
+generated: '2026-09-01'
+method: generated
+source: API Evangelist, from the probed surfaces in this repository
+x-operator: institution
+note: >-
+  Governance rules written by API Evangelist for the University of Ottawa's own surfaces. These
+  are OUR recommendations, not uOttawa policy - the institution publishes no API governance
+  document of any kind. Each rule names the probe that motivated it.
+rules:
+  - id: publish-a-machine-readable-contract
+    severity: error
+    applies_to: [www-jsonapi, ruor-dspace-rest, ruor-oai-pmh]
+    statement: >-
+      Every publicly readable surface should ship an OpenAPI (or a documented JSON:API profile)
+      from the institution itself.
+    motivation: >-
+      All three specs in openapi/ were written by API Evangelist from probes because uOttawa
+      publishes none. A consumer today has to reverse-engineer the surface to use it.
+  - id: index-must-not-over-advertise
+    severity: error
+    applies_to: [www-jsonapi]
+    statement: >-
+      A resource type listed in the JSON:API index must resolve to a JSON:API response, and a
+      disabled type must return a JSON:API errors document, not an HTML 404 page.
+    motivation: 'Probed 2026-09-01: /en/jsonapi/node/event is advertised in the index and returns a Drupal HTML 404.'
+  - id: distinguish-not-found-from-not-permitted
+    severity: warn
+    applies_to: [ruor-dspace-rest]
+    statement: An unresolvable object identifier should return 404, not 401.
+    motivation: >-
+      GET /core/communities/not-a-uuid returns 401, so callers cannot tell a bad identifier
+      from an access-control decision.
+  - id: declare-the-anonymous-read-boundary
+    severity: warn
+    applies_to: [ruor-dspace-rest]
+    statement: >-
+      Document which collections are anonymously readable. /core/communities and
+      /core/collections are open; /core/items and /core/bitstreams/{uuid} return 401.
+    motivation: The boundary is discoverable only by probing, and harvesters will hit it unannounced.
+  - id: announce-platform-upgrades
+    severity: warn
+    applies_to: [ruor-dspace-rest]
+    statement: A major platform version change should be announced on a page consumers can watch.
+    motivation: >-
+      uO Research moved from DSpace 7.6.5 (recorded 2026-06-03) to DSpace 8.3 (probed
+      2026-09-01) with no public notice found; the running service is the only record.
+  - id: publish-security-txt
+    severity: warn
+    applies_to: [www.uottawa.ca]
+    statement: Publish an RFC 9116 /.well-known/security.txt naming a disclosure contact.
+    motivation: 'Probed 2026-09-01: 404.'
+  - id: state-an-agent-policy
+    severity: info
+    applies_to: [www.uottawa.ca]
+    statement: >-
+      Publish an llms.txt or equivalent stating how automated clients may use the JSON:API
+      surface, which is currently open and undocumented.
+    motivation: 'Probed 2026-09-01: /llms.txt returns 404 while /jsonapi serves content to any client.'
+  - id: never-claim-a-vendor-contract
+    severity: error
+    applies_to: [catalog]
+    statement: >-
+      Surfaces operated by a vendor under a uOttawa name - Ex Libris Primo VE (Omni, via
+      OCUL), Leepfrog CourseLeaf at catalogue.uottawa.ca, Borealis Dataverse - are recorded as
+      tenant relationships. Their contracts are never saved as uOttawa's.
+    motivation: The misattribution this pipeline exists to prevent.

@@ -1,0 +1,71 @@
+{
+  "_embedded" : {
+    "communities" : [ {
+      "id" : "faeaedb9-829e-4d69-a10f-0ef46421fd59",
+      "uuid" : "faeaedb9-829e-4d69-a10f-0ef46421fd59",
+      "name" : "Affaires académiques // Academic Affairs",
+      "handle" : "10393/51008",
+      "metadata" : {
+        "dc.identifier.uri" : [ {
+          "value" : "http://hdl.handle.net/10393/51008",
+          "language" : null,
+          "authority" : null,
+          "confidence" : -1,
+          "place" : 0
+        } ],
+        "dc.title" : [ {
+          "value" : "Affaires académiques // Academic Affairs",
+          "language" : null,
+          "authority" : null,
+          "confidence" : -1,
+          "place" : 0
+        } ]
+      },
+      "archivedItemsCount" : -1,
+      "type" : "community",
+      "_links" : {
+        "collections" : {
+          "href" : "https://ruor.uottawa.ca/server/api/core/communities/faeaedb9-829e-4d69-a10f-0ef46421fd59/collections"
+        },
+        "logo" : {
+          "href" : "https://ruor.uottawa.ca/server/api/core/communities/faeaedb9-829e-4d69-a10f-0ef46421fd59/logo"
+        },
+        "subcommunities" : {
+          "href" : "https://ruor.uottawa.ca/server/api/core/communities/faeaedb9-829e-4d69-a10f-0ef46421fd59/subcommunities"
+        },
+        "parentCommunity" : {
+          "href" : "https://ruor.uottawa.ca/server/api/core/communities/faeaedb9-829e-4d69-a10f-0ef46421fd59/parentCommunity"
+        },
+        "adminGroup" : {
+          "href" : "https://ruor.uottawa.ca/server/api/core/communities/faeaedb9-829e-4d69-a10f-0ef46421fd59/adminGroup"
+        },
+        "self" : {
+          "href" : "https://ruor.uottawa.ca/server/api/core/communities/faeaedb9-829e-4d69-a10f-0ef46421fd59"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "first" : {
+      "href" : "https://ruor.uottawa.ca/server/api/core/communities?page=0&size=1"
+    },
+    "self" : {
+      "href" : "https://ruor.uottawa.ca/server/api/core/communities?size=1"
+    },
+    "next" : {
+      "href" : "https://ruor.uottawa.ca/server/api/core/communities?page=1&size=1"
+    },
+    "last" : {
+      "href" : "https://ruor.uottawa.ca/server/api/core/communities?page=65&size=1"
+    },
+    "search" : {
+      "href" : "https://ruor.uottawa.ca/server/api/core/communities/search"
+    }
+  },
+  "page" : {
+    "size" : 1,
+    "totalElements" : 66,
+    "totalPages" : 66,
+    "number" : 0
+  }
+}

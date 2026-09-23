@@ -1,0 +1,45 @@
+generated: '2026-09-01'
+method: probed
+source: live anonymous HTTP requests against the hosts named below
+note: >-
+  Provenance for every capture in this directory. Each file is an unmodified (or, where noted,
+  trimmed) response body captured by API Evangelist on 2026-09-01. None of these were written
+  by the University of Ottawa and none should be read as a document the institution published.
+examples:
+  - file: university-of-ottawa-ruor-oai-identify-example.xml
+    source: https://ruor.uottawa.ca/server/oai/request?verb=Identify
+    status: 200
+    method: probed
+    x-operator: institution
+    modified: false
+  - file: university-of-ottawa-ruor-communities-example.json
+    source: https://ruor.uottawa.ca/server/api/core/communities?size=1
+    status: 200
+    method: probed
+    x-operator: institution
+    modified: false
+  - file: university-of-ottawa-www-jsonapi-article-example.json
+    source: https://www.uottawa.ca/jsonapi/node/article?page%5Blimit%5D=2
+    status: 200
+    method: probed
+    x-operator: institution
+    modified: true
+    modification: >-
+      Trimmed to one resource and to a readable subset of its attributes and relationships;
+      the response envelope, resource type, id and links are as returned.
+  - file: university-of-ottawa-caf-idp-saml-metadata-example.xml
+    source: https://fca-caf.uottawa.ca/idp/shibboleth
+    status: 200
+    method: probed
+    x-operator: institution
+    modified: false
+  - file: university-of-ottawa-catalogue-courseleaf-course-example.xml
+    source: 'https://catalogue.uottawa.ca/ribbit/index.cgi?page=getcourse.rjs&code=CSI%202110'
+    status: 200
+    method: probed
+    x-operator: tenant
+    modified: false
+    note: >-
+      TENANT capture. The course data is uOttawa's; the endpoint and its response format belong
+      to Leepfrog CourseLeaf (catalogue.uottawa.ca CNAME uottawa-ca-public.courseleaf.com).
+      Kept as evidence of the tenancy, not as a uOttawa contract.

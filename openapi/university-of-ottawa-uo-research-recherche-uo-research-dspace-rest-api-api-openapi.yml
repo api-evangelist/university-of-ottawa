@@ -1,0 +1,63 @@
+openapi: 3.2.0
+info:
+  title: UO Research (Recherche UO Research) DSpace REST API
+  version: '8.3'
+  description: Read-only description of the publicly reachable subset of the DSpace REST/HATEOAS API that the University of Ottawa Library operates for uO Research (Recherche uO Research), the institution's own institutional repository, at https://ruor.uottawa.ca/server/api.
+  contact:
+    name: uO Research, University of Ottawa Library
+    email: ruor@uottawa.ca
+    url: https://ruor.uottawa.ca/
+  license:
+    name: Not stated by the operator
+    url: https://ruor.uottawa.ca/
+servers:
+- url: https://ruor.uottawa.ca/server/api
+  description: Production DSpace 8.3 REST API, University of Ottawa Library
+tags:
+- name: UO Research (Recherche UO Research) DSpace REST API
+paths:
+  /:
+    get:
+      operationId: getRoot
+      summary: API root / service document
+      description: 'Returns the DSpace HAL root document. Probed 2026-09-01: HTTP 200, application/hal+json, 8,619 bytes, dspaceVersion "DSpace 8.3", dspaceName "Recherche uO Research", 79 HAL link relations.'
+      responses:
+        '200':
+          description: HAL root document
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Root'
+      tags:
+      - UO Research (Recherche UO Research) DSpace REST API
+components:
+  schemas:
+    Root:
+      type: object
+      properties:
+        dspaceUI:
+          type: string
+          format: uri
+          example: https://ruor.uottawa.ca
+        dspaceName:
+          type: string
+          example: Recherche uO Research
+        dspaceServer:
+          type: string
+          format: uri
+          example: https://ruor.uottawa.ca/server
+        dspaceVersion:
+          type: string
+          example: DSpace 8.3
+        type:
+          type: string
+          example: root
+        _links:
+          type: object
+x-operator: institution
+x-provenance:
+  generated: '2026-09-01'
+  method: probed
+  source: https://ruor.uottawa.ca/server/api
+  author: API Evangelist
+  note: Probed, not published by the institution and not derived from a vendor document. Every path below was requested anonymously and the recorded response codes are real.

@@ -1,0 +1,71 @@
+openapi: 3.2.0
+info:
+  title: uO Research (Recherche uO Research) DSpace REST Discover API
+  version: '8.3'
+  description: Read-only description of the publicly reachable subset of the DSpace REST/HATEOAS API that the University of Ottawa Library operates for uO Research (Recherche uO Research), the institution's own institutional repository, at https://ruor.uottawa.ca/server/api.
+  contact:
+    name: uO Research, University of Ottawa Library
+    email: ruor@uottawa.ca
+    url: https://ruor.uottawa.ca/
+  license:
+    name: Not stated by the operator
+    url: https://ruor.uottawa.ca/
+servers:
+- url: https://ruor.uottawa.ca/server/api
+  description: Production DSpace 8.3 REST API, University of Ottawa Library
+tags:
+- name: Discover
+paths:
+  /discover/search/objects:
+    get:
+      operationId: searchObjects
+      summary: Discovery search across the repository
+      description: 'Probed 2026-09-01 with ?query=climate&size=1: HTTP 200, application/hal+json, 21,098 bytes, returning embedded search results with facets. This is the anonymous read path for repository content.'
+      parameters:
+      - name: query
+        in: query
+        schema:
+          type: string
+      - name: dsoType
+        in: query
+        schema:
+          type: string
+          enum:
+          - community
+          - collection
+          - item
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/Size'
+      responses:
+        '200':
+          description: Discovery result document
+          content:
+            application/hal+json:
+              schema:
+                type: object
+      tags:
+      - Discover
+components:
+  parameters:
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    Size:
+      name: size
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+x-operator: institution
+x-provenance:
+  generated: '2026-09-01'
+  method: probed
+  source: https://ruor.uottawa.ca/server/api
+  author: API Evangelist
+  note: Probed, not published by the institution and not derived from a vendor document. Every path below was requested anonymously and the recorded response codes are real.

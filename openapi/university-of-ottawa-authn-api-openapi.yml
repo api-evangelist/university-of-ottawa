@@ -1,0 +1,55 @@
+openapi: 3.2.0
+info:
+  title: uO Research (Recherche uO Research) DSpace REST Authn API
+  version: '8.3'
+  description: Read-only description of the publicly reachable subset of the DSpace REST/HATEOAS API that the University of Ottawa Library operates for uO Research (Recherche uO Research), the institution's own institutional repository, at https://ruor.uottawa.ca/server/api.
+  contact:
+    name: uO Research, University of Ottawa Library
+    email: ruor@uottawa.ca
+    url: https://ruor.uottawa.ca/
+  license:
+    name: Not stated by the operator
+    url: https://ruor.uottawa.ca/
+servers:
+- url: https://ruor.uottawa.ca/server/api
+  description: Production DSpace 8.3 REST API, University of Ottawa Library
+tags:
+- name: Authn
+paths:
+  /authn/status:
+    get:
+      operationId: getAuthenticationStatus
+      summary: Authentication status of the caller
+      description: 'Probed 2026-09-01: HTTP 200, 429 bytes, {"okay": true, "authenticated": false}. Confirms anonymous access is permitted and no session is required for public reads.'
+      responses:
+        '200':
+          description: Authentication status document
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/AuthnStatus'
+      tags:
+      - Authn
+components:
+  schemas:
+    AuthnStatus:
+      type: object
+      properties:
+        okay:
+          type: boolean
+        authenticated:
+          type: boolean
+        authenticationMethod:
+          type:
+          - string
+          - 'null'
+        type:
+          type: string
+          example: status
+x-operator: institution
+x-provenance:
+  generated: '2026-09-01'
+  method: probed
+  source: https://ruor.uottawa.ca/server/api
+  author: API Evangelist
+  note: Probed, not published by the institution and not derived from a vendor document. Every path below was requested anonymously and the recorded response codes are real.

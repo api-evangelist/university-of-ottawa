@@ -1,0 +1,66 @@
+generated: '2026-09-01'
+method: probed
+source: https://ruor.uottawa.ca/server/api/authn/status
+x-operator: institution
+note: >-
+  How authentication actually behaves on the University of Ottawa's institution-operated
+  surfaces, established by live anonymous requests on 2026-09-01. uOttawa publishes no
+  developer documentation for any of these, so every statement below is a probe result.
+surfaces:
+  - id: ruor-dspace-rest
+    name: uO Research DSpace REST API
+    base_url: https://ruor.uottawa.ca/server/api
+    operator: institution
+    public_read: partial
+    scheme: none_required_for_public_reads
+    evidence: >-
+      GET /authn/status returns HTTP 200 with {"okay": true, "authenticated": false,
+      "authenticationMethod": null}, confirming anonymous calls are accepted. GET
+      /core/communities and /core/collections return 200 anonymously; GET /core/items and
+      GET /core/bitstreams/{uuid} return 401, so item and bitstream enumeration is closed to
+      anonymous callers and public discovery must go through /discover/search/objects.
+    write_access: >-
+      Not attempted. DSpace 8 supports session-based login at /api/authn/login plus an
+      X-XSRF-TOKEN CSRF flow; no credentials were used and no write path was probed.
+  - id: ruor-oai-pmh
+    name: uO Research OAI-PMH
+    base_url: https://ruor.uottawa.ca/server/oai/request
+    operator: institution
+    public_read: true
+    scheme: none
+    evidence: >-
+      Identify, ListMetadataFormats, ListSets and ListRecords all returned HTTP 200 with no
+      credentials, key, or referrer requirement.
+  - id: www-jsonapi
+    name: uottawa.ca Content JSON:API
+    base_url: https://www.uottawa.ca/en/jsonapi
+    operator: institution
+    public_read: true
+    scheme: none
+    evidence: >-
+      The resource index, node/article, node/alert and taxonomy_term/tags all returned HTTP
+      200 anonymously. Drupal's JSON:API module is running read-only for anonymous users;
+      no write was attempted.
+  - id: caf-idp
+    name: uOttawa Shibboleth Identity Provider
+    base_url: https://fca-caf.uottawa.ca/idp
+    operator: institution
+    public_read: true
+    scheme: saml2
+    evidence: >-
+      The SAML 2.0 metadata document at /idp/shibboleth is served anonymously (HTTP 200). The
+      IdP itself authenticates uottawa.ca principals for federated services; this profile
+      records only the public metadata endpoint.
+negative_probes:
+  - url: https://www.uottawa.ca/.well-known/openid-configuration
+    status: 404
+    note: No OIDC discovery document on the primary web property.
+  - url: https://www.uottawa.ca/.well-known/security.txt
+    status: 404
+    note: No RFC 9116 security contact.
+  - url: https://api.uottawa.ca/
+    status: 0
+    note: Host does not resolve. No central API gateway.
+  - url: https://developer.uottawa.ca/
+    status: 0
+    note: Host does not resolve. No developer portal, so no key-issuing or onboarding flow exists.

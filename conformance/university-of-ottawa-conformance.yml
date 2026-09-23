@@ -1,0 +1,108 @@
+generated: '2026-09-01'
+method: probed
+source: https://www.uottawa.ca/
+x-operator: institution
+note: >-
+  Domain-standard conformance for the Kin Score `education` regulatory regime, probed against
+  University of Ottawa hosts and against the public registries the institution is registered in
+  on 2026-09-01. Every `conforms: true` points at a specific live response, not at a prose claim.
+  Standards uOttawa does not publicly expose are recorded false with the probe that established
+  it - reward-only, nothing invented to fill a slot. Surfaces operated by uOttawa's vendors
+  (Ex Libris Primo VE via OCUL, Leepfrog CourseLeaf at catalogue.uottawa.ca, Borealis Dataverse)
+  are excluded: their conformance is the vendor's, not the institution's.
+regime:
+  id: education
+  name: Education & Research
+  matched_via: tags
+domain_standards:
+  - id: oai-pmh
+    conforms: true
+    version: '2.0'
+    operator: institution
+    evidence: >-
+      GET https://ruor.uottawa.ca/server/oai/request?verb=Identify returns HTTP 200 text/xml with
+      repositoryName "Recherche uO Research", baseURL https://ruor.uottawa.ca/server/oai/request,
+      protocolVersion 2.0, adminEmail ruor@uottawa.ca, earliestDatestamp 2008-09-30T18:39:35Z,
+      deletedRecord transient, granularity YYYY-MM-DDThh:mm:ssZ, repositoryIdentifier
+      ruor.uottawa.ca. ListMetadataFormats returns fourteen prefixes - didl, mods, ore, mets,
+      xoai, dim, rioxx, uketd_dc, qdc, oai_dc, rdf, marc, oai_etdms, etdms. ListSets returns
+      13,002 bytes of sets and ListRecords&metadataPrefix=oai_dc returns 292,306 bytes of records.
+    evidence_url: https://ruor.uottawa.ca/server/oai/request?verb=Identify
+    artifact: openapi/university-of-ottawa-ruor-oai-pmh-openapi.yml
+  - id: shibboleth
+    conforms: true
+    operator: institution
+    evidence: >-
+      The University of Ottawa operates its own Shibboleth Identity Provider. GET
+      https://fca-caf.uottawa.ca/idp/shibboleth returns HTTP 200 application/xml (7,299 bytes)
+      with entityID https://fca-caf.uottawa.ca/idp, an IDPSSODescriptor, and shibmd:Scope
+      uottawa.ca. The host resolves to 137.122.8.144, inside uOttawa's own IP allocation.
+    evidence_url: https://fca-caf.uottawa.ca/idp/shibboleth
+    artifact: examples/university-of-ottawa-caf-idp-saml-metadata-example.xml
+  - id: saml
+    conforms: true
+    version: '2.0'
+    operator: institution
+    evidence: >-
+      The IdP metadata publishes SAML 2.0 SingleSignOnService endpoints for HTTP-POST,
+      HTTP-Redirect and POST-SimpleSign bindings plus a SOAP ArtifactResolutionService at
+      https://fca-caf.uottawa.ca:8443/idp/profile/SAML2/SOAP/ArtifactResolution. The entity is
+      registered in the eduGAIN metadata aggregate (entity id 678487) with registration authority
+      http://www.canarie.ca - the Canadian Access Federation, operated by CANARIE - carrying
+      display name "University of Ottawa" and role IDPSSODescriptor, which interfederates it
+      internationally.
+    evidence_url: https://technical.edugain.org/api.php?action=list_entities
+  - id: datacite
+    conforms: true
+    operator: registry
+    evidence: >-
+      GET https://api.datacite.org/providers/uott returns HTTP 200 with name "University of
+      Ottawa", symbol UOTT, memberType consortium_organization, country CA, rorId
+      https://ror.org/03c4mmv16, isActive true, under the DataCite Canada (DCAN) consortium.
+      Its repository client is uott.library ("University of Ottawa - Library", clientType
+      repository, joined 2020) with DOI prefix 10.20381. Those DOIs are live in uOttawa's own
+      repository: one ListRecords page from ruor.uottawa.ca contains 91 identifiers under
+      10.20381 (for example 10.20381/ruor-1473).
+    evidence_url: https://api.datacite.org/providers/uott
+  - id: crossref
+    conforms: true
+    operator: registry
+    evidence: >-
+      Two Crossref member records are the institution's. Member 7569 "University of Ottawa
+      Library" holds prefixes 10.18192 and 10.51224 with 3,860 DOIs (989 current, 2,871
+      backfile); member 16151 "University of Ottawa Press" holds prefix 10.31188 with 20 DOIs.
+      Both returned HTTP 200 from api.crossref.org on 2026-09-01.
+    evidence_url: https://api.crossref.org/members/7569
+  - id: orcid
+    conforms: partial
+    operator: institution
+    evidence: >-
+      uO Research's metadata field registry exposes ORCID integration: GET
+      https://ruor.uottawa.ca/server/api/core/metadatafields?size=500 returns nine ORCID fields
+      including person.identifier.orcid plus the DSpace ORCID synchronisation fields
+      (orcid.authenticated, orcid.scope, orcid.sync-mode, orcid.sync-profile,
+      orcid.sync-publications, orcid.sync-fundings). This evidences the repository is configured
+      to carry and synchronise ORCID iDs. No public uOttawa ORCID consortium membership document
+      or ORCID-authenticated endpoint was found, so this is recorded as partial rather than true.
+    evidence_url: https://ruor.uottawa.ca/server/api/core/metadatafields?size=500
+  - id: scim
+    conforms: false
+    evidence: 'No SCIM endpoint found on any uOttawa host. Negative probe: api.uottawa.ca does not resolve (NXDOMAIN) and no SCIM service is documented publicly.'
+  - id: lti
+    conforms: false
+    evidence: >-
+      uOttawa's learning management system is Brightspace (D2L), a hosted vendor platform. No
+      institution-operated LTI 1.3 JWKS or platform configuration endpoint was found on a
+      uottawa.ca host. Any LTI conformance here would be D2L's, not the institution's.
+  - id: oneroster
+    conforms: false
+    evidence: No OneRoster endpoint found; no public student-information integration surface.
+  - id: ed-fi
+    conforms: false
+    evidence: Ed-Fi is a K-12 data standard and was not expected; no Ed-Fi surface found.
+  - id: caliper
+    conforms: false
+    evidence: No Caliper Analytics event store or endpoint found on a uOttawa host.
+  - id: qti
+    conforms: false
+    evidence: No QTI assessment-interoperability surface found on a uOttawa host.

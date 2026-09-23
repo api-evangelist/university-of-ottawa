@@ -1,0 +1,170 @@
+# x-archived-from: university-of-ottawa-www-drupal-jsonapi-openapi.yml
+# x-archived-on: 2026-09-16
+openapi: 3.0.3
+info:
+  title: uottawa.ca Content JSON:API
+  version: '1.0'
+  description: >-
+    Undocumented but publicly readable JSON:API 1.0 surface exposed by the University of
+    Ottawa's own Drupal content platform at https://www.uottawa.ca/jsonapi (locale-prefixed
+    to /en/jsonapi and /fr/jsonapi on redirect).
+
+    OPERATOR: University of Ottawa. The host is the institution's primary web property; the
+    resource-type index advertises 287 link relations naming uOttawa's own content model
+    (node--faculty, node--campus_life, node--academic_experience, node--content_hub,
+    media--*, taxonomy_term--*). The SOFTWARE is Drupal core's JSON:API module; the content
+    model and the data are uOttawa's.
+
+    PROVENANCE AND STATUS: uOttawa does not document this as an API and links to no developer
+    portal. It is nonetheless served anonymously with CORS-free HTTP 200 responses and real
+    content. API Evangelist wrote this document from live probes on 2026-09-01. Not every
+    advertised resource type is enabled: node/article, node/alert and taxonomy_term/tags
+    returned 200, while node/event returned 404 (an HTML page, not a JSON:API error), so
+    callers must expect the index to over-advertise.
+  contact:
+    name: University of Ottawa
+    url: https://www.uottawa.ca/
+servers:
+  - url: https://www.uottawa.ca/en/jsonapi
+    description: English locale, production
+  - url: https://www.uottawa.ca/fr/jsonapi
+    description: French locale, production
+x-operator: institution
+x-provenance:
+  generated: '2026-09-01'
+  method: probed
+  source: https://www.uottawa.ca/jsonapi
+  author: API Evangelist
+paths:
+  /:
+    get:
+      operationId: getResourceIndex
+      summary: JSON:API resource-type index
+      description: >-
+        Probed 2026-09-01: HTTP 200, application/vnd.api+json, 31,836 bytes, 287 link keys
+        covering node, media, taxonomy_term, file, user, menu and config entity types.
+      responses:
+        '200':
+          description: Index document listing every advertised resource type
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/IndexDocument' }
+  /node/article:
+    get:
+      operationId: listArticles
+      summary: List article nodes
+      description: >-
+        Probed 2026-09-01 with ?page[limit]=2: HTTP 200, application/vnd.api+json, returning
+        real published articles (first item "Ericsson establishes Quantum Research hub at
+        uOttawa", nid 1926).
+      parameters:
+        - $ref: '#/components/parameters/PageLimit'
+        - $ref: '#/components/parameters/PageOffset'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Filter'
+        - $ref: '#/components/parameters/Include'
+      responses:
+        '200':
+          description: JSON:API collection document
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/CollectionDocument' }
+              examples:
+                article:
+                  externalValue: ../examples/university-of-ottawa-www-jsonapi-article-example.json
+  /node/article/{uuid}:
+    get:
+      operationId: getArticle
+      summary: Get one article node by UUID
+      parameters:
+        - name: uuid
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+        - $ref: '#/components/parameters/Include'
+      responses:
+        '200':
+          description: JSON:API resource document
+          content:
+            application/vnd.api+json:
+              schema: { type: object }
+  /node/alert:
+    get:
+      operationId: listAlerts
+      summary: List campus alert nodes
+      description: >-
+        Probed 2026-09-01 with ?page[limit]=2: HTTP 200 with an empty data array - no alert
+        was published at probe time.
+      parameters:
+        - $ref: '#/components/parameters/PageLimit'
+      responses:
+        '200':
+          description: JSON:API collection document, possibly empty
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/CollectionDocument' }
+  /taxonomy_term/tags:
+    get:
+      operationId: listTags
+      summary: List taxonomy terms in the tags vocabulary
+      description: 'Probed 2026-09-01: HTTP 200, empty data array.'
+      parameters:
+        - $ref: '#/components/parameters/PageLimit'
+      responses:
+        '200':
+          description: JSON:API collection document
+          content:
+            application/vnd.api+json:
+              schema: { $ref: '#/components/schemas/CollectionDocument' }
+components:
+  parameters:
+    PageLimit:
+      name: 'page[limit]'
+      in: query
+      schema: { type: integer, minimum: 1, maximum: 50, default: 50 }
+    PageOffset:
+      name: 'page[offset]'
+      in: query
+      schema: { type: integer, minimum: 0, default: 0 }
+    Sort:
+      name: sort
+      in: query
+      schema: { type: string, example: '-created' }
+    Filter:
+      name: filter
+      in: query
+      description: JSON:API filter, e.g. filter[status]=1
+      schema: { type: string }
+    Include:
+      name: include
+      in: query
+      schema: { type: string }
+  schemas:
+    IndexDocument:
+      type: object
+      properties:
+        jsonapi: { $ref: '#/components/schemas/JsonApiObject' }
+        data: { type: array, items: { type: object } }
+        links: { type: object, additionalProperties: { type: object } }
+    CollectionDocument:
+      type: object
+      properties:
+        jsonapi: { $ref: '#/components/schemas/JsonApiObject' }
+        data:
+          type: array
+          items: { $ref: '#/components/schemas/Resource' }
+        links: { type: object }
+        meta: { type: object }
+    Resource:
+      type: object
+      properties:
+        type: { type: string, example: 'node--article' }
+        id: { type: string, format: uuid }
+        links: { type: object }
+        attributes: { type: object }
+        relationships: { type: object }
+    JsonApiObject:
+      type: object
+      properties:
+        version: { type: string, example: '1.0' }
+        meta: { type: object }

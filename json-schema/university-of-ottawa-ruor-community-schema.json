@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/university-of-ottawa/main/json-schema/university-of-ottawa-ruor-community-schema.json",
+  "title": "uO Research DSpace Community",
+  "description": "Schema for a community object returned by GET https://ruor.uottawa.ca/server/api/core/communities. Derived by API Evangelist from a live anonymous response captured 2026-09-01; not published by the University of Ottawa.",
+  "x-provenance": {
+    "generated": "2026-09-01",
+    "method": "derived",
+    "source": "https://ruor.uottawa.ca/server/api/core/communities?size=1",
+    "author": "API Evangelist",
+    "operator": "institution"
+  },
+  "type": "object",
+  "required": ["uuid", "name", "type"],
+  "properties": {
+    "id": { "type": "string", "format": "uuid" },
+    "uuid": { "type": "string", "format": "uuid" },
+    "name": { "type": "string", "examples": ["Affaires académiques // Academic Affairs"] },
+    "handle": { "type": "string", "examples": ["10393/51008"] },
+    "metadata": {
+      "type": "object",
+      "description": "DSpace metadata map, keyed by schema.element.qualifier",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "value": { "type": "string" },
+            "language": { "type": ["string", "null"] },
+            "authority": { "type": ["string", "null"] },
+            "confidence": { "type": "integer" },
+            "place": { "type": "integer" }
+          }
+        }
+      }
+    },
+    "archivedItemsCount": { "type": ["integer", "null"] },
+    "type": { "const": "community" },
+    "_links": { "type": "object" },
+    "_embedded": { "type": "object" }
+  }
+}

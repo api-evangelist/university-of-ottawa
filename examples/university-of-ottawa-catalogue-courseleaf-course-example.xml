@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<courseinfo>
+<course code="CSI 2110">
+<![CDATA[
+<div class="courseblock">
+<h3 class="courseblocktitle noindent">CSI&#160;2110 Data Structures and Algorithms (3 units)</h3>
+<p class="courseblockdesc noindent">
+The concept of abstract data types. Simple methods of complexity analysis. Trees. The search problem: balanced trees, binary-trees, hashing. Sorting. Graphs and simple graph algorithms: traversal, minimum spanning tree. Strings and pattern matching.</p><p class="courseblockextra noindent"><strong>Course Component: </strong>Laboratory, Lecture, Tutorial</p><p class="courseblockextra highlight noindent">Prerequisites: <a href="/search/?P=ITI%201121" title="ITI&#160;1121" class="bubblelink code" onclick="return showCourse(this, 'ITI 1121');">ITI&#160;1121</a>, <a href="/search/?P=MAT%201348" title="MAT&#160;1348" class="bubblelink code" onclick="return showCourse(this, 'MAT 1348');">MAT&#160;1348</a>.</p></div>
+]]>
+</course>
+</courseinfo>

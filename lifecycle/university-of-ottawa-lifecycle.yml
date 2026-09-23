@@ -1,0 +1,58 @@
+generated: '2026-09-01'
+method: probed
+source: https://ruor.uottawa.ca/server/api
+x-operator: institution
+note: >-
+  Versioning and change-management posture of the University of Ottawa's institution-operated
+  surfaces. uOttawa publishes no changelog, no deprecation policy and no status page for any
+  of them; the version facts below are read from the running services.
+surfaces:
+  - id: ruor-dspace-rest
+    platform: DSpace
+    platform_version: '8.3'
+    platform_steward: LYRASIS (open source)
+    version_evidence: >-
+      GET https://ruor.uottawa.ca/server/api returns dspaceVersion "DSpace 8.3". Note the
+      catalog previously recorded DSpace 7.6.5 (2026-06-03); the deployment has since been
+      upgraded a major version, and no announcement of that upgrade was found on a uOttawa
+      page - the running service is the only public record of it.
+    versioning_in_api: false
+    deprecation_policy: none_published
+    changelog: none_published
+  - id: ruor-oai-pmh
+    protocol: OAI-PMH
+    protocol_version: '2.0'
+    version_evidence: 'Identify returns protocolVersion 2.0, granularity YYYY-MM-DDThh:mm:ssZ, deletedRecord transient.'
+    earliest_datestamp: '2008-09-30T18:39:35Z'
+    versioning_in_api: false
+    deprecation_policy: none_published
+    changelog: none_published
+  - id: www-jsonapi
+    platform: Drupal core JSON:API module
+    protocol: 'JSON:API'
+    protocol_version: '1.0'
+    version_evidence: 'Every response carries {"jsonapi": {"version": "1.0"}}.'
+    versioning_in_api: >-
+      Partial. Individual resources expose a resourceVersion query parameter and a
+      working-copy link relation, which is Drupal content revisioning rather than API
+      versioning.
+    stability: >-
+      Undocumented and unannounced. The index over-advertises resource types that are not
+      enabled (node/event returned 404), so the surface can change without notice and without
+      any published contract for consumers to check against.
+    deprecation_policy: none_published
+    changelog: none_published
+  - id: caf-idp
+    platform: Shibboleth Identity Provider
+    protocol: SAML
+    protocol_version: '2.0'
+    version_evidence: 'Metadata declares protocolSupportEnumeration urn:oasis:names:tc:SAML:2.0:protocol.'
+    change_management: >-
+      Federated. Metadata changes propagate through the Canadian Access Federation (CANARIE)
+      aggregate and onward to eduGAIN, which is the closest thing to a published change
+      channel any uOttawa surface has.
+observed_absences:
+  - No status page. status.uottawa.ca resolves to uottawastatus.tumblr.com and fails TLS
+    negotiation for that hostname, so it is not usable as a status pointer.
+  - No changelog, release notes, or deprecation notice on any institution-operated surface.
+  - No developer portal, so no channel exists through which a breaking change would be announced.

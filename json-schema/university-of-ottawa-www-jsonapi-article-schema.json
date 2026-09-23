@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/university-of-ottawa/main/json-schema/university-of-ottawa-www-jsonapi-article-schema.json",
+  "title": "uottawa.ca JSON:API article resource",
+  "description": "Schema for a node--article resource returned by GET https://www.uottawa.ca/en/jsonapi/node/article. Derived by API Evangelist from a live anonymous response captured 2026-09-01; the University of Ottawa publishes no schema for this surface.",
+  "x-provenance": {
+    "generated": "2026-09-01",
+    "method": "derived",
+    "source": "https://www.uottawa.ca/jsonapi/node/article?page%5Blimit%5D=2",
+    "author": "API Evangelist",
+    "operator": "institution"
+  },
+  "type": "object",
+  "required": ["type", "id", "attributes"],
+  "properties": {
+    "type": { "const": "node--article" },
+    "id": { "type": "string", "format": "uuid" },
+    "links": {
+      "type": "object",
+      "properties": {
+        "self": { "type": "object", "properties": { "href": { "type": "string", "format": "uri" } } }
+      }
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "drupal_internal__nid": { "type": "integer" },
+        "title": { "type": "string" },
+        "created": { "type": "string", "format": "date-time" },
+        "changed": { "type": "string", "format": "date-time" },
+        "status": { "type": "boolean" },
+        "langcode": { "type": "string", "enum": ["en", "fr"] },
+        "moderation_state": { "type": ["string", "null"] },
+        "path": {
+          "type": "object",
+          "properties": {
+            "alias": { "type": "string" },
+            "pid": { "type": ["integer", "null"] },
+            "langcode": { "type": "string" }
+          }
+        }
+      }
+    },
+    "relationships": { "type": "object" }
+  }
+}

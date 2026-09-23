@@ -1,0 +1,53 @@
+generated: '2026-09-01'
+method: probed
+source: https://ruor.uottawa.ca/server/api
+x-operator: institution
+note: >-
+  Observed error behaviour of the University of Ottawa's institution-operated surfaces. Every
+  entry is a status code actually returned on 2026-09-01. None of these surfaces implements
+  RFC 9457 problem+json; the shapes below are what the underlying platforms emit.
+surfaces:
+  - id: ruor-dspace-rest
+    media_type: application/json
+    rfc9457: false
+    errors:
+      - status: 401
+        trigger: GET /core/items (anonymous enumeration of items)
+        body_shape: 'Spring Boot error document: timestamp, status, error, message, path'
+        note: >-
+          Item enumeration is authenticated on this deployment, so the anonymous caller sees
+          401 rather than an empty collection.
+      - status: 401
+        trigger: GET /core/communities/not-a-uuid
+        body_shape: Spring Boot error document
+        note: >-
+          A malformed or non-resolvable object identifier returns 401, not 404 or 400. Callers
+          cannot distinguish "does not exist" from "not permitted" on this deployment.
+      - status: 401
+        trigger: GET /core/bitstreams/00000000-0000-0000-0000-000000000000
+        body_shape: Spring Boot error document
+  - id: ruor-oai-pmh
+    media_type: text/xml
+    rfc9457: false
+    errors:
+      - status: 200
+        trigger: GET /server/oai/request?verb=Bogus
+        body_shape: 'OAI-PMH envelope containing <error code="badVerb">'
+        note: >-
+          Protocol-conformant OAI-PMH behaviour: protocol errors (badVerb, badArgument,
+          cannotDisseminateFormat, idDoesNotExist, noRecordsMatch) are carried inside a
+          200 response, so HTTP status alone is not a success signal for harvesters.
+  - id: www-jsonapi
+    media_type: text/html
+    rfc9457: false
+    errors:
+      - status: 404
+        trigger: GET /en/jsonapi/node/event
+        body_shape: Drupal HTML 404 page, not a JSON:API errors document
+        note: >-
+          A resource type advertised in the JSON:API index but not enabled falls through to
+          the site's HTML 404 handler. Clients that assume application/vnd.api+json on error
+          will fail to parse it.
+      - status: 404
+        trigger: GET https://www.uottawa.ca/llms.txt
+        body_shape: Minimal HTML 404 from the edge, distinct from the Drupal 404 page

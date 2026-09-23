@@ -1,0 +1,59 @@
+openapi: 3.2.0
+info:
+  title: Uottawa.ca Content JSON:API API
+  version: '1.0'
+  description: Undocumented but publicly readable JSON:API 1.0 surface exposed by the University of Ottawa's own Drupal content platform at https://www.uottawa.ca/jsonapi (locale-prefixed to /en/jsonapi and /fr/jsonapi on redirect).
+  contact:
+    name: University of Ottawa
+    url: https://www.uottawa.ca/
+servers:
+- url: https://www.uottawa.ca/en/jsonapi
+  description: English locale, production
+- url: https://www.uottawa.ca/fr/jsonapi
+  description: French locale, production
+tags:
+- name: Uottawa.ca Content JSON:API
+paths:
+  /:
+    get:
+      operationId: getResourceIndex
+      summary: JSON:API resource-type index
+      description: 'Probed 2026-09-01: HTTP 200, application/vnd.api+json, 31,836 bytes, 287 link keys covering node, media, taxonomy_term, file, user, menu and config entity types.'
+      responses:
+        '200':
+          description: Index document listing every advertised resource type
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/IndexDocument'
+      tags:
+      - Uottawa.ca Content JSON:API
+components:
+  schemas:
+    JsonApiObject:
+      type: object
+      properties:
+        version:
+          type: string
+          example: '1.0'
+        meta:
+          type: object
+    IndexDocument:
+      type: object
+      properties:
+        jsonapi:
+          $ref: '#/components/schemas/JsonApiObject'
+        data:
+          type: array
+          items:
+            type: object
+        links:
+          type: object
+          additionalProperties:
+            type: object
+x-operator: institution
+x-provenance:
+  generated: '2026-09-01'
+  method: probed
+  source: https://www.uottawa.ca/jsonapi
+  author: API Evangelist

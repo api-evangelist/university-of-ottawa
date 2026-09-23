@@ -1,0 +1,85 @@
+openapi: 3.2.0
+info:
+  title: 'uottawa.ca Content JSON: Taxonomy Term API'
+  version: '1.0'
+  description: Undocumented but publicly readable JSON:API 1.0 surface exposed by the University of Ottawa's own Drupal content platform at https://www.uottawa.ca/jsonapi (locale-prefixed to /en/jsonapi and /fr/jsonapi on redirect).
+  contact:
+    name: University of Ottawa
+    url: https://www.uottawa.ca/
+servers:
+- url: https://www.uottawa.ca/en/jsonapi
+  description: English locale, production
+- url: https://www.uottawa.ca/fr/jsonapi
+  description: French locale, production
+tags:
+- name: Taxonomy Term
+paths:
+  /taxonomy_term/tags:
+    get:
+      operationId: listTags
+      summary: List taxonomy terms in the tags vocabulary
+      description: 'Probed 2026-09-01: HTTP 200, empty data array.'
+      parameters:
+      - $ref: '#/components/parameters/PageLimit'
+      responses:
+        '200':
+          description: JSON:API collection document
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/CollectionDocument'
+      tags:
+      - Taxonomy Term
+components:
+  schemas:
+    Resource:
+      type: object
+      properties:
+        type:
+          type: string
+          example: node--article
+        id:
+          type: string
+          format: uuid
+        links:
+          type: object
+        attributes:
+          type: object
+        relationships:
+          type: object
+    CollectionDocument:
+      type: object
+      properties:
+        jsonapi:
+          $ref: '#/components/schemas/JsonApiObject'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+        links:
+          type: object
+        meta:
+          type: object
+    JsonApiObject:
+      type: object
+      properties:
+        version:
+          type: string
+          example: '1.0'
+        meta:
+          type: object
+  parameters:
+    PageLimit:
+      name: page[limit]
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 50
+x-operator: institution
+x-provenance:
+  generated: '2026-09-01'
+  method: probed
+  source: https://www.uottawa.ca/jsonapi
+  author: API Evangelist

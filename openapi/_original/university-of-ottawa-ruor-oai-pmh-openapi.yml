@@ -1,0 +1,88 @@
+openapi: 3.0.3
+info:
+  title: uO Research OAI-PMH 2.0 Metadata Harvesting Endpoint
+  version: '2.0'
+  description: >-
+    Description of the OAI-PMH 2.0 provider the University of Ottawa Library operates for
+    uO Research (Recherche uO Research) at https://ruor.uottawa.ca/server/oai/request.
+
+    OPERATOR: University of Ottawa. An Identify request returns repositoryName
+    "Recherche uO Research", repositoryIdentifier ruor.uottawa.ca, adminEmail ruor@uottawa.ca,
+    earliestDatestamp 2008-09-30T18:39:35Z. OAI-PMH is an Open Archives Initiative protocol;
+    the endpoint, the sets and the records are uOttawa's.
+
+    PROVENANCE: uOttawa publishes no OpenAPI for this endpoint. API Evangelist wrote this
+    document from live anonymous probes on 2026-09-01. Every verb below returned HTTP 200
+    when called; the response bodies are XML in the OAI-PMH namespace, so responses are typed
+    as application/xml rather than modelled field by field.
+  contact:
+    name: uO Research, University of Ottawa Library
+    email: ruor@uottawa.ca
+    url: https://ruor.uottawa.ca/
+servers:
+  - url: https://ruor.uottawa.ca/server/oai
+    description: Production OAI-PMH provider, University of Ottawa Library
+x-operator: institution
+x-provenance:
+  generated: '2026-09-01'
+  method: probed
+  source: https://ruor.uottawa.ca/server/oai/request?verb=Identify
+  author: API Evangelist
+paths:
+  /request:
+    get:
+      operationId: oaiRequest
+      summary: OAI-PMH 2.0 request endpoint
+      description: >-
+        Single-endpoint protocol dispatched on the `verb` query parameter. Probed 2026-09-01:
+        Identify 200 (1,282 bytes), ListMetadataFormats 200 (3,577 bytes, fourteen prefixes),
+        ListSets 200 (13,002 bytes), ListRecords&metadataPrefix=oai_dc 200 (292,306 bytes,
+        containing 91 DOIs under the institution's DataCite prefix 10.20381), and an invalid
+        verb returns 200 with an OAI-PMH <error code="badVerb"> element rather than an HTTP
+        error status - normal OAI-PMH behaviour.
+      parameters:
+        - name: verb
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [Identify, ListMetadataFormats, ListSets, ListRecords, ListIdentifiers, GetRecord]
+        - name: metadataPrefix
+          in: query
+          description: >-
+            Required for ListRecords, ListIdentifiers and GetRecord. Fourteen prefixes are
+            supported by this repository.
+          schema:
+            type: string
+            enum: [oai_dc, qdc, mods, mets, didl, ore, rdf, marc, xoai, dim, etdms, oai_etdms, rioxx, uketd_dc]
+        - name: identifier
+          in: query
+          description: 'OAI identifier, e.g. oai:ruor.uottawa.ca:10393/1234'
+          schema: { type: string }
+        - name: set
+          in: query
+          schema: { type: string }
+        - name: from
+          in: query
+          schema: { type: string, format: date-time }
+        - name: until
+          in: query
+          schema: { type: string, format: date-time }
+        - name: resumptionToken
+          in: query
+          schema: { type: string }
+      responses:
+        '200':
+          description: >-
+            OAI-PMH response envelope. Protocol-level failures (badVerb, badArgument,
+            cannotDisseminateFormat, idDoesNotExist, noRecordsMatch) are also returned with
+            HTTP 200 and an <error> element inside the envelope.
+          content:
+            text/xml:
+              schema:
+                type: string
+                description: OAI-PMH 2.0 XML envelope
+              examples:
+                identify:
+                  summary: Identify response captured 2026-09-01
+                  externalValue: ../examples/university-of-ottawa-ruor-oai-identify-example.xml

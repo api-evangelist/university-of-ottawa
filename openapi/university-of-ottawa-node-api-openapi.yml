@@ -1,0 +1,153 @@
+openapi: 3.2.0
+info:
+  title: 'uottawa.ca Content JSON: Node API'
+  version: '1.0'
+  description: Undocumented but publicly readable JSON:API 1.0 surface exposed by the University of Ottawa's own Drupal content platform at https://www.uottawa.ca/jsonapi (locale-prefixed to /en/jsonapi and /fr/jsonapi on redirect).
+  contact:
+    name: University of Ottawa
+    url: https://www.uottawa.ca/
+servers:
+- url: https://www.uottawa.ca/en/jsonapi
+  description: English locale, production
+- url: https://www.uottawa.ca/fr/jsonapi
+  description: French locale, production
+tags:
+- name: Node
+paths:
+  /node/article:
+    get:
+      operationId: listArticles
+      summary: List article nodes
+      description: 'Probed 2026-09-01 with ?page[limit]=2: HTTP 200, application/vnd.api+json, returning real published articles (first item "Ericsson establishes Quantum Research hub at uOttawa", nid 1926).'
+      parameters:
+      - $ref: '#/components/parameters/PageLimit'
+      - $ref: '#/components/parameters/PageOffset'
+      - $ref: '#/components/parameters/Sort'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Include'
+      responses:
+        '200':
+          description: JSON:API collection document
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/CollectionDocument'
+              examples:
+                article:
+                  externalValue: ../examples/university-of-ottawa-www-jsonapi-article-example.json
+      tags:
+      - Node
+  /node/article/{uuid}:
+    get:
+      operationId: getArticle
+      summary: Get one article node by UUID
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - $ref: '#/components/parameters/Include'
+      responses:
+        '200':
+          description: JSON:API resource document
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+      tags:
+      - Node
+  /node/alert:
+    get:
+      operationId: listAlerts
+      summary: List campus alert nodes
+      description: 'Probed 2026-09-01 with ?page[limit]=2: HTTP 200 with an empty data array - no alert was published at probe time.'
+      parameters:
+      - $ref: '#/components/parameters/PageLimit'
+      responses:
+        '200':
+          description: JSON:API collection document, possibly empty
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/CollectionDocument'
+      tags:
+      - Node
+components:
+  schemas:
+    Resource:
+      type: object
+      properties:
+        type:
+          type: string
+          example: node--article
+        id:
+          type: string
+          format: uuid
+        links:
+          type: object
+        attributes:
+          type: object
+        relationships:
+          type: object
+    JsonApiObject:
+      type: object
+      properties:
+        version:
+          type: string
+          example: '1.0'
+        meta:
+          type: object
+    CollectionDocument:
+      type: object
+      properties:
+        jsonapi:
+          $ref: '#/components/schemas/JsonApiObject'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+        links:
+          type: object
+        meta:
+          type: object
+  parameters:
+    Filter:
+      name: filter
+      in: query
+      description: JSON:API filter, e.g. filter[status]=1
+      schema:
+        type: string
+    PageOffset:
+      name: page[offset]
+      in: query
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    PageLimit:
+      name: page[limit]
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 50
+    Sort:
+      name: sort
+      in: query
+      schema:
+        type: string
+        example: -created
+    Include:
+      name: include
+      in: query
+      schema:
+        type: string
+x-operator: institution
+x-provenance:
+  generated: '2026-09-01'
+  method: probed
+  source: https://www.uottawa.ca/jsonapi
+  author: API Evangelist
