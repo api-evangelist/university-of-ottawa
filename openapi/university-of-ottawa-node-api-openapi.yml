@@ -76,21 +76,6 @@ paths:
       - Node
 components:
   schemas:
-    Resource:
-      type: object
-      properties:
-        type:
-          type: string
-          example: node--article
-        id:
-          type: string
-          format: uuid
-        links:
-          type: object
-        attributes:
-          type: object
-        relationships:
-          type: object
     JsonApiObject:
       type: object
       properties:
@@ -112,7 +97,41 @@ components:
           type: object
         meta:
           type: object
+    Resource:
+      type: object
+      properties:
+        type:
+          type: string
+          example: node--article
+        id:
+          type: string
+          format: uuid
+        links:
+          type: object
+        attributes:
+          type: object
+        relationships:
+          type: object
   parameters:
+    Sort:
+      name: sort
+      in: query
+      schema:
+        type: string
+        example: -created
+    PageLimit:
+      name: page[limit]
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 50
+    Include:
+      name: include
+      in: query
+      schema:
+        type: string
     Filter:
       name: filter
       in: query
@@ -126,25 +145,6 @@ components:
         type: integer
         minimum: 0
         default: 0
-    PageLimit:
-      name: page[limit]
-      in: query
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 50
-        default: 50
-    Sort:
-      name: sort
-      in: query
-      schema:
-        type: string
-        example: -created
-    Include:
-      name: include
-      in: query
-      schema:
-        type: string
 x-operator: institution
 x-provenance:
   generated: '2026-09-01'

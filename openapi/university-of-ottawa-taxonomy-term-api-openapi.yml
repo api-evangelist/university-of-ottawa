@@ -32,20 +32,13 @@ paths:
       - Taxonomy Term
 components:
   schemas:
-    Resource:
+    JsonApiObject:
       type: object
       properties:
-        type:
+        version:
           type: string
-          example: node--article
-        id:
-          type: string
-          format: uuid
-        links:
-          type: object
-        attributes:
-          type: object
-        relationships:
+          example: '1.0'
+        meta:
           type: object
     CollectionDocument:
       type: object
@@ -60,13 +53,20 @@ components:
           type: object
         meta:
           type: object
-    JsonApiObject:
+    Resource:
       type: object
       properties:
-        version:
+        type:
           type: string
-          example: '1.0'
-        meta:
+          example: node--article
+        id:
+          type: string
+          format: uuid
+        links:
+          type: object
+        attributes:
+          type: object
+        relationships:
           type: object
   parameters:
     PageLimit:

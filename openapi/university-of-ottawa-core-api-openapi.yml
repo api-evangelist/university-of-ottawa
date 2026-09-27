@@ -145,20 +145,6 @@ components:
         maximum: 100
         default: 20
   schemas:
-    PagedCommunities:
-      type: object
-      properties:
-        _embedded:
-          type: object
-          properties:
-            communities:
-              type: array
-              items:
-                $ref: '#/components/schemas/Community'
-        page:
-          $ref: '#/components/schemas/Page'
-        _links:
-          type: object
     Error:
       type: object
       properties:
@@ -173,17 +159,6 @@ components:
           type: string
         path:
           type: string
-    Page:
-      type: object
-      properties:
-        size:
-          type: integer
-        totalElements:
-          type: integer
-        totalPages:
-          type: integer
-        number:
-          type: integer
     Community:
       type: object
       properties:
@@ -204,6 +179,31 @@ components:
         type:
           type: string
           example: community
+    PagedCommunities:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            communities:
+              type: array
+              items:
+                $ref: '#/components/schemas/Community'
+        page:
+          $ref: '#/components/schemas/Page'
+        _links:
+          type: object
+    Page:
+      type: object
+      properties:
+        size:
+          type: integer
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+        number:
+          type: integer
 x-operator: institution
 x-provenance:
   generated: '2026-09-01'
