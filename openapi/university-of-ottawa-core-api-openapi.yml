@@ -129,20 +129,17 @@ paths:
       - Core
 components:
   schemas:
-    PagedCommunities:
+    Page:
       type: object
       properties:
-        _embedded:
-          type: object
-          properties:
-            communities:
-              type: array
-              items:
-                $ref: '#/components/schemas/Community'
-        page:
-          $ref: '#/components/schemas/Page'
-        _links:
-          type: object
+        size:
+          type: integer
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+        number:
+          type: integer
     Error:
       type: object
       properties:
@@ -157,6 +154,20 @@ components:
           type: string
         path:
           type: string
+    PagedCommunities:
+      type: object
+      properties:
+        _embedded:
+          type: object
+          properties:
+            communities:
+              type: array
+              items:
+                $ref: '#/components/schemas/Community'
+        page:
+          $ref: '#/components/schemas/Page'
+        _links:
+          type: object
     Community:
       type: object
       properties:
@@ -177,17 +188,6 @@ components:
         type:
           type: string
           example: community
-    Page:
-      type: object
-      properties:
-        size:
-          type: integer
-        totalElements:
-          type: integer
-        totalPages:
-          type: integer
-        number:
-          type: integer
   parameters:
     Size:
       name: size

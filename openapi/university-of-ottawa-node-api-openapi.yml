@@ -75,6 +75,39 @@ paths:
       tags:
       - Node
 components:
+  parameters:
+    PageLimit:
+      name: page[limit]
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 50
+    Sort:
+      name: sort
+      in: query
+      schema:
+        type: string
+        example: -created
+    Filter:
+      name: filter
+      in: query
+      description: JSON:API filter, e.g. filter[status]=1
+      schema:
+        type: string
+    PageOffset:
+      name: page[offset]
+      in: query
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    Include:
+      name: include
+      in: query
+      schema:
+        type: string
   schemas:
     JsonApiObject:
       type: object
@@ -82,6 +115,19 @@ components:
         version:
           type: string
           example: '1.0'
+        meta:
+          type: object
+    CollectionDocument:
+      type: object
+      properties:
+        jsonapi:
+          $ref: '#/components/schemas/JsonApiObject'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+        links:
+          type: object
         meta:
           type: object
     Resource:
@@ -99,52 +145,6 @@ components:
           type: object
         relationships:
           type: object
-    CollectionDocument:
-      type: object
-      properties:
-        jsonapi:
-          $ref: '#/components/schemas/JsonApiObject'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Resource'
-        links:
-          type: object
-        meta:
-          type: object
-  parameters:
-    PageLimit:
-      name: page[limit]
-      in: query
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 50
-        default: 50
-    PageOffset:
-      name: page[offset]
-      in: query
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    Sort:
-      name: sort
-      in: query
-      schema:
-        type: string
-        example: -created
-    Include:
-      name: include
-      in: query
-      schema:
-        type: string
-    Filter:
-      name: filter
-      in: query
-      description: JSON:API filter, e.g. filter[status]=1
-      schema:
-        type: string
 x-operator: institution
 x-provenance:
   generated: '2026-09-01'
