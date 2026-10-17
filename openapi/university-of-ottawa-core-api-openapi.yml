@@ -129,17 +129,6 @@ paths:
       - Core
 components:
   schemas:
-    Page:
-      type: object
-      properties:
-        size:
-          type: integer
-        totalElements:
-          type: integer
-        totalPages:
-          type: integer
-        number:
-          type: integer
     Error:
       type: object
       properties:
@@ -168,6 +157,17 @@ components:
           $ref: '#/components/schemas/Page'
         _links:
           type: object
+    Page:
+      type: object
+      properties:
+        size:
+          type: integer
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+        number:
+          type: integer
     Community:
       type: object
       properties:

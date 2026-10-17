@@ -30,14 +30,6 @@ paths:
       - Uottawa.ca Content JSON:API
 components:
   schemas:
-    JsonApiObject:
-      type: object
-      properties:
-        version:
-          type: string
-          example: '1.0'
-        meta:
-          type: object
     IndexDocument:
       type: object
       properties:
@@ -51,6 +43,14 @@ components:
           type: object
           additionalProperties:
             type: object
+    JsonApiObject:
+      type: object
+      properties:
+        version:
+          type: string
+          example: '1.0'
+        meta:
+          type: object
 x-operator: institution
 x-provenance:
   generated: '2026-09-01'

@@ -32,6 +32,21 @@ paths:
       - Taxonomy Term
 components:
   schemas:
+    Resource:
+      type: object
+      properties:
+        type:
+          type: string
+          example: node--article
+        id:
+          type: string
+          format: uuid
+        links:
+          type: object
+        attributes:
+          type: object
+        relationships:
+          type: object
     CollectionDocument:
       type: object
       properties:
@@ -52,21 +67,6 @@ components:
           type: string
           example: '1.0'
         meta:
-          type: object
-    Resource:
-      type: object
-      properties:
-        type:
-          type: string
-          example: node--article
-        id:
-          type: string
-          format: uuid
-        links:
-          type: object
-        attributes:
-          type: object
-        relationships:
           type: object
   parameters:
     PageLimit:
