@@ -1,4 +1,4 @@
-# University of Ottawa (university-of-ottawa)
+# University of Ottawa
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,46 +64,145 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-The University of Ottawa (uOttawa) is a public bilingual research university in Ottawa, Ontario, Canada, and the largest English-French bilingual university in the world. It is ranked #189 in the QS World University Rankings 2025. This repository catalogs uOttawa's public, machine-readable developer/API footprint as an APIs.json profile.
+The University of Ottawa (uOttawa / Universite d'Ottawa) is a public bilingual research university in Ottawa, Ontario, Canada, and the largest English-French bilingual university in the world. Its programmable footprint is small, undocumented, and almost entirely a by-product of the platforms it runs rather than anything it sells or supports: uOttawa publishes no developer portal, no API gateway, no OpenAPI, no llms.txt and no security.txt, and api.uottawa.ca and developer.uottawa.ca do not resolve. What it does operate itself, on its own hosts, is worth naming precisely. uO Research (Recherche uO Research) at ruor.uottawa.ca is a self-hosted DSpace 8.3 institutional repository exposing a public REST/HATEOAS API and an OAI-PMH 2.0 provider with fourteen metadata formats; www.uottawa.ca serves an undocumented but fully anonymous Drupal JSON:API surface advertising 287 resource types; and fca-caf.uottawa.ca runs the institution's own Shibboleth SAML 2.0 identity provider, registered in the Canadian Access Federation by CANARIE and interfederated through eduGAIN. Everything else that looks like a uOttawa API belongs to a vendor: the Omni library discovery layer is Ex Libris Primo VE via the OCUL consortium, the course catalogue at catalogue.uottawa.ca is Leepfrog CourseLeaf (CNAME uottawa-ca-public.courseleaf.com), and the research-data collection is a Borealis (Dataverse) tenancy. Those are recorded here as tenant relationships, never as uOttawa contracts. The institution is also a registrant in three identifier registries - DataCite (member UOTT, repository uott.library, prefix 10.20381), Crossref (members 7569 and 16151), and ROR (03c4mmv16) - which is a fact about uOttawa even though the registries' own APIs are not.
 
-- APIs.json: https://raw.githubusercontent.com/api-evangelist/university-of-ottawa/refs/heads/main/apis.yml
-- Naftiko Run: https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=university-of-ottawa-api-evangelist&utm_content=repo
+**Areas:** University · Higher Education · Education · Canada · Ontario · Bilingual · Public Research University · U15 · Institutional Repository · Research Data · Library · Course Catalog
 
-## Type
+## University of Ottawa on APIs.io
 
-- Index / Consumer / 3rd-Party
+Everything profiled for University of Ottawa is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/university-of-ottawa/](https://apis.io/providers/university-of-ottawa/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (15)
 
-Education, Higher Education, University, Canada, Bilingual, Library, Institutional Repository, DSpace, OAI-PMH, Open Access
+- [uOttawa Shibboleth Identity Provider (Canadian Access Federation)](https://apis.io/apis/university-of-ottawa/caf-idp/) — The University of Ottawa's own SAML 2.0 identity provider and its published federation metadata. Probed 2026-09-01:…
+- [uOttawa Course Catalogue (CourseLeaf tenancy)](https://apis.io/apis/university-of-ottawa/catalogue-courseleaf/) — uOttawa's academic course catalogue, served on a uOttawa hostname but operated by Leepfrog Technologies: catalogue.uottawa.ca is a CNAME to…
+- [uOttawa Dataverse collection on Borealis](https://apis.io/apis/university-of-ottawa/borealis-dataverse/) — The University of Ottawa's research-data collection on Borealis, the Canadian Dataverse repository run by Scholars Portal / OCUL for CRKN. Probed…
+- [Omni library discovery (Ex Libris Primo VE tenancy)](https://apis.io/apis/university-of-ottawa/omni-primo/) — uOttawa Library's discovery layer, Omni, is an Ex Libris Primo VE view delivered through the Ontario Council of University Libraries consortium at…
+- [DataCite membership (UOTT)](https://apis.io/apis/university-of-ottawa/datacite/) — The University of Ottawa is a DataCite member and DOI registrant. Probed 2026-09-01: GET https://api.datacite.org/providers/uott returns HTTP 200 with name…
+- [Crossref membership (7569, 16151)](https://apis.io/apis/university-of-ottawa/crossref/) — Two Crossref member records belong to the institution. Member 7569, "University of Ottawa Library", holds prefixes 10.18192 and 10.51224 with 3,860 DOIs…
+- [ROR registration (03c4mmv16)](https://apis.io/apis/university-of-ottawa/ror/) — The University of Ottawa is registered in the Research Organization Registry as https://ror.org/03c4mmv16, domain uottawa.ca, created 2018-11-14 and last…
+- [University of Ottawa Authn API](https://apis.io/apis/university-of-ottawa/university-of-ottawa-authn-api/) — The Authn API from University of Ottawa — 1 operation(s) for authn.
+- [University of Ottawa Core API](https://apis.io/apis/university-of-ottawa/university-of-ottawa-core-api/) — The Core API from University of Ottawa — 6 operation(s) for core.
+- [University of Ottawa Discover API](https://apis.io/apis/university-of-ottawa/university-of-ottawa-discover-api/) — The Discover API from University of Ottawa — 1 operation(s) for discover.
+- [University of Ottawa Node API](https://apis.io/apis/university-of-ottawa/university-of-ottawa-node-api/) — The Node API from University of Ottawa — 3 operation(s) for node.
+- [University of Ottawa Request API](https://apis.io/apis/university-of-ottawa/university-of-ottawa-request-api/) — The Request API from University of Ottawa — 1 operation(s) for request.
+- [University of Ottawa Taxonomy Term API](https://apis.io/apis/university-of-ottawa/university-of-ottawa-taxonomy-term-api/) — The Taxonomy Term API from University of Ottawa — 1 operation(s) for taxonomy term.
+- [University of Ottawa UO Research (Recherche UO Research) DSpace REST API](https://apis.io/apis/university-of-ottawa/university-of-ottawa-uo-research-recherche-uo-research-dspace-rest-api-api/) — The UO Research (Recherche UO Research) DSpace REST API API from University of Ottawa — 1 operation(s) for uo research (recherche uo research) dspace rest api.
+- [University of Ottawa Uottawa.ca Content JSON:API API](https://apis.io/apis/university-of-ottawa/university-of-ottawa-uottawa-ca-content-json-api-api/) — The Uottawa.ca Content JSON:API API from University of Ottawa — 1 operation(s) for uottawa.ca content json:api.
 
-## APIs
+### Published properties
 
-- **uO Research DSpace REST API** — Public DSpace 7.6.5 REST/HATEOAS API for the uO Research institutional repository. Docs: https://ruor.uottawa.ca/server/api (base URL: https://ruor.uottawa.ca/server/api)
-- **uO Research OAI-PMH** — OAI-PMH 2.0 metadata-harvesting endpoint for uO Research. Docs: https://ruor.uottawa.ca/server/oai/request?verb=Identify (base URL: https://ruor.uottawa.ca/server/oai/request)
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## Plans / Rate Limits / FinOps
+#### JSON Schema (2)
 
-- Plans: [plans/university-of-ottawa-plans-pricing.yml](plans/university-of-ottawa-plans-pricing.yml)
-- Rate Limits: [rate-limits/university-of-ottawa-rate-limits.yml](rate-limits/university-of-ottawa-rate-limits.yml)
-- FinOps: [finops/university-of-ottawa-finops.yml](finops/university-of-ottawa-finops.yml)
+The data models the API reads and writes.
 
-## Timestamps
+- [uO Research DSpace Community](https://apis.io/schemas/university-of-ottawa/university-of-ottawa-ruor-community/)
+- [uottawa.ca JSON:API article resource](https://apis.io/schemas/university-of-ottawa/university-of-ottawa-www-jsonapi-article/)
 
-- Created: 2026-06-03
-- Modified: 2026-06-03
+#### JSON-LD (1)
 
-## Common Properties
+Linked-data contexts for the provider's vocabulary.
 
-- Website: https://www.uottawa.ca/
-- GitHub: https://github.com/uottawa-wcms
-- LinkedIn: https://ca.linkedin.com/school/uottawa/
-- Review: [review.yml](review.yml)
+- [University Of Ottawa Context](https://apis.io/jsonld/university-of-ottawa/university-of-ottawa-context/)
 
-## Notes
+#### Examples (2)
 
-All entries were verified live on 2026-06-03. The uO Research repository (Recherche uO Research) self-reports DSpace 7.6.5 and exposes both a public DSpace REST API and an OAI-PMH 2.0 endpoint (both HTTP 200). uOttawa does not operate a single unified public developer portal, and no documented open-data, course/catalog/SIS, or mobile-backend API was found publicly; enterprise and student systems appear gated behind institutional SSO. The LinkedIn page returns HTTP 999 (LinkedIn's standard bot block) but exists. No endpoints were fabricated.
+Example requests and responses.
 
-## Maintainers
+- [University Of Ottawa Ruor Communities Example](https://apis.io/examples/university-of-ottawa/university-of-ottawa-ruor-communities-example/)
+- [University Of Ottawa Www Jsonapi Article Example](https://apis.io/examples/university-of-ottawa/university-of-ottawa-www-jsonapi-article-example/)
 
-- Kin Lane — kin@apievangelist.com
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [University of Ottawa API Rules](https://apis.io/rules/university-of-ottawa/university-of-ottawa-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [University Of Ottawa Authentication](https://apis.io/security/university-of-ottawa/university-of-ottawa-authentication/)
+- [University Of Ottawa Domain Security](https://apis.io/security/university-of-ottawa/university-of-ottawa-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [University Of Ottawa Plans Pricing](https://apis.io/plans/university-of-ottawa/university-of-ottawa-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [University Of Ottawa Rate Limits](https://apis.io/rate-limits/university-of-ottawa/university-of-ottawa-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [University Of Ottawa Finops](https://apis.io/finops/university-of-ottawa/university-of-ottawa-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.uottawa.ca/)
+- [Support](https://it.uottawa.ca/)
+- [Blog](https://www.uottawa.ca/about-us/news-all)
+- [Privacy policy](https://www.uottawa.ca/about-us/administration-services/aipo/privacy-rights/website-privacy-statement)
+
+## API Evangelist rating
+
+**Kin Score 33.6** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.4 |
+| Contract quality | 55.3 |
+| Contract governance | 15.2 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 23.8 |
+| Access clarity | 15.8 |
+
+**Agent readiness 28.2** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | na |
+| Error Semantics | verified |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 28.4** — Education & Research
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/university-of-ottawa/](https://apis.io/providers/university-of-ottawa/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for University of Ottawa: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/university-of-ottawa/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
